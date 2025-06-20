@@ -25,6 +25,28 @@ A RESTful API built with **Express.js**, **TypeScript**, and **MongoDB (Mongoose
 - **Aggregation**: MongoDB Aggregation Framework
 
 
+## 📦 Api details 
+
+
+##  Book Routes
+
+| Method | Endpoint             | Description                                               |
+| ------ | -------------------- | --------------------------------------------------------- |
+| POST   | `/api/books`         | Create a new book                                         |
+| GET    | `/api/books`         | Get all books with optional filtering, sorting, and limit |
+| GET    | `/api/books/:bookId` | Get a book by its ID                                      |
+| PUT    | `/api/books/:bookId` | Update a book (e.g., change copies)                       |
+| DELETE | `/api/books/:bookId` | Delete a book by its ID                                   |
+
+
+##  Borrowed Book Routes
+
+| Method | Endpoint      | Description                                           |
+| ------ | ------------- | ----------------------------------------------------- |
+| POST   | `/api/borrow` | Borrow a book (checks availability and updates stock) |
+| GET    | `/api/borrow` | Get borrowed books summary with total quantity        |
+
+
 
 ## 🛠️ Installation
 
