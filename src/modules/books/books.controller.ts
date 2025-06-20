@@ -69,13 +69,34 @@ export const bookUpdate = async (req: Request, res: Response) => {
 
     res.status(200).json({
       success: true,
-      message: "Books find successfully",
+      message: "Books Updated successfully",
       data,
     });
   } catch (error) {
     res.status(400).json({
       success: false,
-      message: "Failed to find book",
+      message: "Failed to update book",
+      error,
+    });
+  }
+};
+
+
+export const bookDelete = async (req: Request, res: Response) => {
+  try {
+    const { bookId } = req.params;
+
+    const data = await Books.findByIdAndDelete(bookId);
+
+    res.status(200).json({
+      success: true,
+      message: "Books delete successfully",
+      data,
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: "Failed to delete book",
       error,
     });
   }
