@@ -20,3 +20,21 @@ export const createBook = async (req: Request, res: Response) => {
     });
   }
 };
+
+export const getBook = async (req: Request, res: Response) => {
+  try {
+    const data = await Books.find();
+
+    res.status(201).json({
+      success: true,
+      message: "Books find successfully",
+      data,
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: "Failed to find book",
+      error,
+    });
+  }
+};
