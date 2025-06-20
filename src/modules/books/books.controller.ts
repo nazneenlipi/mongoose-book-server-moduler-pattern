@@ -58,3 +58,25 @@ export const getBookByID = async (req: Request, res: Response) => {
     });
   }
 };
+
+export const bookUpdate = async (req: Request, res: Response) => {
+  try {
+    const { bookId } = req.params;
+    const updatedData = req.body;
+    const data = await Books.findByIdAndUpdate(bookId, updatedData, { new: true,
+    runValidators:true ,
+     });
+
+    res.status(200).json({
+      success: true,
+      message: "Books find successfully",
+      data,
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: "Failed to find book",
+      error,
+    });
+  }
+};
