@@ -91,7 +91,7 @@ export const bookDelete = async (req: Request, res: Response) => {
     res.status(200).json({
       success: true,
       message: "Books delete successfully",
-      data,
+       data: null,
     });
   } catch (error) {
     res.status(400).json({
