@@ -3,10 +3,10 @@ import { bookDelete, bookUpdate, createBook, getBook, getBookByID } from "./book
 
 const useRoute = Router()
 
-useRoute.post("/api/books", createBook)
-useRoute.get("/api/books", getBook)
-useRoute.get("/api/books/:bookId", getBookByID)
-useRoute.put("/api/books/:bookId", bookUpdate)
-useRoute.delete("/api/books/:bookId", bookDelete)
+useRoute.post("/", createBook)
+useRoute.get("/", getBook)
+useRoute.get("/:bookId", getBookByID)
+useRoute.put("/:bookId", bookUpdate)
+useRoute.delete("/:bookId", bookDelete)
 
 export default useRoute
