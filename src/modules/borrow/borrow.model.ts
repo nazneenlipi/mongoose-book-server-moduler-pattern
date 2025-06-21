@@ -1,6 +1,6 @@
 import { model, Schema } from "mongoose";
 import { BorrowBooks } from "./borrow.interface";
-
+import Books from "../books/books.model";
 
 const borrowSchema = new Schema<BorrowBooks>(
   {
@@ -24,5 +24,26 @@ const borrowSchema = new Schema<BorrowBooks>(
   }
 );
 
-const Borrow = model<BorrowBooks>("borrow" , borrowSchema)
-export default Borrow
+borrowSchema.methods.checkStock = async function () {
+  const book = await Books.findById(this.book);
+
+  if (!book) {
+    throw new Error("Book not found");
+  }
+
+  if (book.copies < this.quantity) {
+    throw new Error(`Only ${book.copies} copies available`);
+  }
+
+  book.copies -= this.quantity;
+  book.available = book.copies > 0;
+
+  if (book.copies < 0) {
+    throw new Error("Book copies went negative");
+  }
+
+  await book.save();
+};
+
+const Borrow = model<BorrowBooks>("Borrow", borrowSchema);
+export default Borrow;
