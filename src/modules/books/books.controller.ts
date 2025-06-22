@@ -23,8 +23,16 @@ export const createBook = async (req: Request, res: Response) => {
 
 export const getBook = async (req: Request, res: Response) => {
   try {
+    const { filter, sort, sortBy, limit } = req.query;
     // const data = await Books.find().sort({ primaryField: 1, secondaryField: -1 }).limit(10);
-    const data = await Books.find();
+
+    const query = filter ? { genre: filter } : {};
+    const sortField = (sortBy as string) || "createdAt";
+    const sortOrder = sort === "asc" ? 1 : -1;
+
+    const data = await Books.find(query)
+      .sort({ [sortField]: sortOrder })
+      .limit(Number(limit) || 10);
 
     res.status(200).json({
       success: true,
@@ -63,9 +71,10 @@ export const bookUpdate = async (req: Request, res: Response) => {
   try {
     const { bookId } = req.params;
     const updatedData = req.body;
-    const data = await Books.findByIdAndUpdate(bookId, updatedData, { new: true,
-    runValidators:true ,
-     });
+    const data = await Books.findByIdAndUpdate(bookId, updatedData, {
+      new: true,
+      runValidators: true,
+    });
 
     res.status(200).json({
       success: true,
@@ -81,7 +90,6 @@ export const bookUpdate = async (req: Request, res: Response) => {
   }
 };
 
-
 export const bookDelete = async (req: Request, res: Response) => {
   try {
     const { bookId } = req.params;
@@ -91,7 +99,7 @@ export const bookDelete = async (req: Request, res: Response) => {
     res.status(200).json({
       success: true,
       message: "Books delete successfully",
-       data: null,
+      data: null,
     });
   } catch (error) {
     res.status(400).json({
