@@ -47,10 +47,12 @@ export const getBorrowedBooksSummary = async  (req: Request, res: Response) => {
       {
         $project: {
           _id: 0,
-          bookId: "$bookInfo._id",
+          book:{
+          // bookId: "$bookInfo._id",
           title: "$bookInfo.title",
           isbn: "$bookInfo.isbn",
-          totalQuantity: 1,
+          },
+           totalQuantity: 1,
         },
       },
     ]);
